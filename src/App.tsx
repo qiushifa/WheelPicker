@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import TestDrawer from "./TestDrawer";
+import WheelPicker from "./WheelPicker";
 
 function App() {
+  const [clickState, setClickState] = useState(false);
+  // @ts-ignore
+  const dataArr = [...Array(15).keys()].map((item) => String(item));
+  console.log("dataArr", dataArr);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="">
+      <button
+          onClick={() => {
+            setClickState(true);
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          弹出
+        </button>
+        <TestDrawer visible={clickState}>
+          <WheelPicker
+            options={dataArr}
+            scrollEnd={(index, value) => {
+              console.log("@@", index, value);
+            }}
+          />
+        </TestDrawer>
     </div>
   );
 }
